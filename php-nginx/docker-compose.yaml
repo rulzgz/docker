@@ -1,0 +1,33 @@
+version: '3.7'
+services:
+  server:
+    container_name: server
+    build:
+      context: .
+      dockerfile: Dockerfile_nginx
+    restart: always
+    volumes:
+      - ~/Escritorio/volumenes/app_data:/public_html
+    ports:
+      - 80:80
+    networks:
+      internal_net:
+        ipv4_address: 172.20.0.2
+  app:
+    container_name: app
+    build:
+      context: .
+      dockerfile: Dockerfile_php
+    restart: always
+    volumes:
+      - ~/Escritorio/volumenes/app_data:/public_html
+    networks:
+      internal_net:
+        ipv4_address: 172.20.0.3
+networks:
+  internal_net:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.20.0.0/24
