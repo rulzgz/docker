@@ -1,0 +1,23 @@
+version: '3.7'
+services:
+  app:
+    container_name: zend
+    extra_hosts:
+     # - "host.docker.internal:host-gateway"
+     - "myhost:172.20.0.2"
+    build: .
+    restart: always
+    volumes:
+      - ~/Escritorio/volumenes/app_data:/var/www/html
+    ports:
+      - 80:80
+    networks:
+      internal_net:
+        ipv4_address: 172.20.0.2
+networks:
+  internal_net:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.20.0.0/24
