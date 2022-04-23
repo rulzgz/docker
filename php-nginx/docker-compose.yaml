@@ -3,8 +3,8 @@ services:
   server:
     container_name: server
     build:
-      context: .
-      dockerfile: Dockerfile_nginx
+      context: ./config/Dockerfiles/nginx/
+      dockerfile: Dockerfile
     restart: always
     volumes:
       - ~/Escritorio/volumenes/app_data:/public_html
@@ -16,8 +16,8 @@ services:
   app:
     container_name: app
     build:
-      context: .
-      dockerfile: Dockerfile_php
+      context: ./config/Dockerfiles/php/
+      dockerfile: Dockerfile
     restart: always
     volumes:
       - ~/Escritorio/volumenes/app_data:/public_html
