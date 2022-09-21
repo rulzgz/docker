@@ -11,8 +11,7 @@ services:
     ports:
       - 80:80
     networks:
-      internal_net:
-        ipv4_address: 172.20.0.2
+      - mi-red
   app:
     container_name: app
     build:
@@ -21,13 +20,10 @@ services:
     restart: always
     volumes:
       - ~/Escritorio/volumenes/app_data:/public_html
+    environment:
+      XDEBUG_CLIENT_HOST: 172.17.0.1
+      XDEBUG_CLIENT_PORT: 9003
     networks:
-      internal_net:
-        ipv4_address: 172.20.0.3
+      - mi-red
 networks:
-  internal_net:
-    driver: bridge
-    ipam:
-      driver: default
-      config:
-        - subnet: 172.20.0.0/24
+      mi-red:
